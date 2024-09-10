@@ -11,6 +11,6 @@
    > [Teorias]
 
 - 📋​ Practicas.
-   > [Practica 1](/practica%201)
+   > [Practica 1](/Practica%201)
    >
-   > [Practica 2](/practica%202)
+   > [Practica 2](/Practica%202)
