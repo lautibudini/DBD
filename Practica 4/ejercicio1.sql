@@ -9,10 +9,10 @@ Producto (idProducto, nombreP, descripcion, precio, stock)
   1. Listar datos personales de clientes cuyo apellido comience con el string ‘Pe’. Ordenar por DNI
 */
 
-select c.nombre, c.apellido, c.dni , c.telefono, c.direccion
+select distinct c.nombre, c.apellido, c.dni , c.telefono, c.direccion
 from cliente c  
 where( c.nombre like 'Pe%')
-order by dni, nombre, apellido, telefono, direccion
+order by c.dni, c.nombre, c.apellido
 
 
 /*
@@ -34,7 +34,7 @@ where ( f.fecha < '2017-01-01' and f.fecha > '2017-12-31' )
 */
 
 
-select p.nombre, p.descripcion , p.precio , p.stock
+select distinct p.nombre, p.descripcion , p.precio , p.stock
 from cliente c natural join factura f natural join detalle d natural join producto p 
 where  ( f.idCliente ='45789456' and c.apellido <> 'Garcia')
 
@@ -42,9 +42,9 @@ where  ( f.idCliente ='45789456' and c.apellido <> 'Garcia')
  4. Listar nombre, descripción, precio y stock de productos no vendidos a clientes que tengan
  teléfono con característica 221 (la característica está al comienzo del teléfono). Ordenar por
  nombre.
-*/
+*/ de producto.
 
-select p.nombre, p.descripcion , p.precio , p.stock
+select distinct p.nombre, p.descripcion , p.precio , p.stock
 from producto p 
 where p.idProducto not in (select p.idProducto
                            from cliente c natural join factura f natural join  detalle d natural join  producto p
@@ -52,6 +52,7 @@ where p.idProducto not in (select p.idProducto
 order by p.nombre, p.descripcion, p.precio , p.stock
 
 -- En el order by tengo que poner todos ? o solo por el que quiero que ordene
+
 
 /*   CONSULTAR
  5. Listar para cada producto nombre, descripción, precio y cuantas veces fue vendido. Tenga en
@@ -77,3 +78,49 @@ except
 select c.nombre , c.apellido , c.dni, c.telefono , c.direccion
 from cliente c natural join factura f natural join detalle d natural join producto p 
 where (p.nombre = 'prod3')
+
+/*
+ 7. Listar nroTicket, total, fecha, hora y DNI del cliente, de aquellas facturas donde se haya
+ comprado el producto ‘prod38’ o la factura tenga fecha de 2019.
+*/
+
+select f.nroTicket , f.total , f.fecha , f.hora , c.dni
+from cliente c natural join factura f natural join detalle d natural join producto p 
+where (p.nombreP = 'prod38' or  f.fecha LIKE '2019-%' ) -- siendo el formato 'año-mes-dia'
+
+
+/*
+ 8. Agregar un cliente con los siguientes datos: nombre:’Jorge Luis’, apellido:’Castor’, DNI:
+ 40578999, teléfono: ‘221-4400789’, dirección:’11 entre 500 y 501 nro:2587’ y el id de cliente:
+ 500002. Se supone que el idCliente 500002 no existe
+*/
+
+insert into cliente (idCliente, nombre, apellido, DNI, telefono, direccion) 
+values ('500002','Jorge Luis','Castor','40578999','221-4400789','11 entre 500 y 501 nro:2587')
+
+/*
+9. Listar nroTicket, total, fecha, hora para las facturas del cliente ´Jorge Pérez´ donde no haya
+ comprado el producto ´Z´
+*/
+
+select f.nroTicket, f.total, f.fecha, f.hora
+from cliente c natural join factura f natural join detalle d natural join producto p 
+where ( c.nombre = 'Jorge' and c.apellido = 'Perez' and p.nombreP <> 'Z' )
+
+/*
+10. Listar DNI, apellido y nombre de clientes donde el monto total comprado, teniendo en cuenta
+ todas sus facturas, supere $10.000.000.
+*/
+
+select c.dni, c.apellido, c.nombre 
+from cliente c natural join factura f
+group by c.dni , c.apellido , c.nombre 
+having sum(f.total) > '10.000.000'
+
+
+
+
+
+where 
+group by 
+having 
