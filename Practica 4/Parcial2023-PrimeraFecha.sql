@@ -8,6 +8,62 @@ Remito=(NROREMITO(FK),fechaRemito,nroPedido(fk))              -
 RemitoArticulo=(NROREMITO(FK,CODIGOARTICULO(FK),cantRemito,precioVenta))   -
 */
 
+
+
+
+/*
+Listar numero de pedido, codigo de articulo, cantidad pedida, tipo y descripcion de articulo
+para los pedidos con fecha de envio 7-11-23. En sql ordenar por codigo de articulo y numero de pedido.
+*/
+
+
+select p.NROPEDIDO, pa.CODARTICULO, pa.cantPedido,  a.tipo, a.descripcion
+from Pedidos p inner join PedidoArticulo pa on (p.NROPEDIDO = pa.NROPEDIDO ) 
+inner join articulo a on (pa.CODARTICULO = a.CODARTICULO)
+where p.fechaEnvio = '23-11-7'
+order by pa.CODARTICULO, pa.CODARTICULO
+
+/*
+Listar apellido,nombre,domicilio y telefono de cliente mas numero de pedido, fecha de envio  numero de
+remito, correspondiente a remitos con fecha 7-11-23.
+*/
+
+
+
+
+/*
+Listar apellido , nombre, y telefono de clientes junto con el codigo, descripcion, y cantidades pedidas y remitida de articulo
+para los articulos cuya cantidad remitida sea menor a la cantidad pedida. en sql ordenar por apellido y nombre de cliente y cod de articulo
+*/
+
+
+/*
+Listar apellido,nombre de cliente y numero de pedido para los pedidos que tengan mas de un remito
+*/
+
+
+/*
+Listar numero de pedido junto con la cantidad de articulos distintos remitidos y el monto total
+del pedido para los pedidos de octubre de 2023
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 Listar numero de pedido, codigo de articulo, cantidad pedida, tipo y descripcion de articulo
 para los pedidos con fecha de envio 7-11-23. En sql ordenar por codigo de articulo y numero de pedido.
